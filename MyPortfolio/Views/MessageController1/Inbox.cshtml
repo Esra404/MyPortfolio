@@ -1,0 +1,66 @@
+﻿@model List<Message>
+@{
+    ViewData["Title"] = "Inbox";
+    Layout = "~/Views/LayoutController1/Index.cshtml";
+}
+
+
+
+<div class="content">
+	<div class="container-fluid">
+		<h4 class="page-title">Mesajlar</h4>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header">
+						<div class="card-title">Gelen Mesaj Listesi</div>
+					</div>
+					<div class="card-body">
+						<div class="card-sub">
+							Mesajlar ile ilgili işlemleri aşağıdaki tablodan yapabilirsiniz
+						</div>
+						<table class="table mt-3">
+							<thead>
+								<tr>
+									<th scope="col">#</th>
+									<th scope="col">Gönderen</th>
+									<th scope="col">Konu</th>
+									<th scope="col">Tarih</th>
+									<th scope="col">Mesajı Aç</th>
+									<th scope="col">Durum</th>
+									<th scope="col">Sil</th>
+									
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (var item in Model)
+								{
+									<tr>
+										<td>@item.Id</td>
+										<td>@item.NameSurname</td>
+										<td>@item.Subject</td>
+										<td>@item.SendDate</td>
+
+										<td><a href="/MessageController1/MessageDetail/@item.Id" class="btn btn-warning">Mesajı Aç</a></td>
+										@if(item.IsRead==true){
+											<td><a href="/MessageController1/ChangeIsReadFalse/@item.Id" class="btn btn-dark">Okunmadı olarak değiştir</a></td>
+										}
+										else{
+											<td><a href="/MessageController1/ChangeIsReadTrue/@item.Id" class="btn btn-info">Okundu olarak değiştir</a></td>
+										}
+									
+										<td><a href="/MessageController1/DeleteMessage/@item.Id" class="btn btn-danger">Sil</a></td>
+										
+									</tr>
+
+								}
+						</table>
+					</div>
+				</div>
+
+
+			</div>
+
+		</div>
+	</div>
+</div>
